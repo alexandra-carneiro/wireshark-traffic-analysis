@@ -119,7 +119,7 @@ Depois de exportar o ficheiro, o comando `sha256sum runner_ilove.exe` dá o hash
 
 ### 7. O que o VirusTotal diz do ficheiro
 
-Consulta do hash no VirusTotal. Na altura da consulta, 48 em 71 motores de segurança marcavam o ficheiro como malicioso. O nome original do ficheiro é `service.exe` e o tamanho é 1,57 MB. A etiqueta de ameaça mais comum é `trojan.capdoor/zusy`, com as etiquetas de família `capdoor`, `zusy` e `misc`. Alguns dos nomes dados pelos motores são `Trojan/Win.AsyncRAT`, `Backdoor:Win/CapDoor.a` e `Trojan/Win64.Zusy`. A pontuação do VirusTotal muda com novas análises, por isso este valor é o da consulta registada no print e não uma pontuação atual.
+Consulta do hash no VirusTotal, com última análise a 02/11/2026 e confirmada na página do ficheiro. 48 em 71 motores de segurança marcavam o ficheiro como malicioso. O nome original do ficheiro é `service.exe` e o tamanho é 1,57 MB. A etiqueta de ameaça mais comum é `trojan.capdoor/zusy`, com as etiquetas de família `capdoor`, `zusy` e `misc`. Alguns dos nomes dados pelos motores são `Trojan/Win.AsyncRAT`, `Backdoor:Win/CapDoor.a` e `Trojan/Win64.Zusy`. A pontuação do VirusTotal muda com novas análises, por isso este valor é o da consulta registada no print e não uma pontuação atual.
 
 ![VirusTotal, 48 em 71 motores](imagens/14-virustotal-hash.png)
 
