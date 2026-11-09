@@ -1,0 +1,16 @@
+Filtros de ecrã do Wireshark usados nesta análise
+Exercício: análise de tráfego Natureforce, captura 2026-10-01-traffic-analysis-exercise.pcap
+
+arp
+nbns
+kerberos.CNameString
+kerberos.cname_string == 1 and !(kerberos.CNameString contains "$")
+http.host == "holtandberyl.com"
+
+Janelas de estatísticas usadas, sem filtro:
+Statistics, Capture File Properties
+Statistics, Protocol Hierarchy
+Statistics, Endpoints (Ethernet e IPv4)
+
+Exportação usada:
+File, Export Objects, HTTP (pacote 24916, runner_ilove.exe)
