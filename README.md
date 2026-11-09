@@ -186,4 +186,4 @@ As 5 respostas pedidas no exercício, mais os outros indicadores que a análise 
 | C2 na captura | 195.63.128[.]106:443 | 15 595 pacotes, 14 MB |
 | Pedidos com curl | holtandberyl.com | GET /prw e /crv, curl/8.21.0 |
 
-Os indicadores estão também no ficheiro `indicadores.txt`, com os endereços externos desfragmentados (defanged) para não serem clicáveis por engano.
+Os indicadores estão também no ficheiro `indicadores.txt`, com os endereços externos defanged para não serem clicáveis por engano.
