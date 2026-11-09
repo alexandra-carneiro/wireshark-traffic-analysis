@@ -1,5 +1,9 @@
 # Análise de tráfego com Wireshark
 
+![Wireshark](https://img.shields.io/badge/Wireshark-1679A7?style=flat&logo=wireshark&logoColor=white)
+![SOC](https://img.shields.io/badge/SOC-Relat%C3%B3rio%20de%20incidente-2ea44f)
+![pcap](https://img.shields.io/badge/pcap-42.497%20pacotes-blue)
+
 Exercício de análise de tráfego e relatório de incidente com Wireshark, a partir de uma captura pública do site Malware-Traffic-Analysis.net. O trabalho foi feito numa máquina virtual Kali Linux, só com leitura da captura. Nada foi executado.
 
 Fonte do exercício: https://www.malware-traffic-analysis.net/2026/10/01/index.html
@@ -8,8 +12,8 @@ Fonte do exercício: https://www.malware-traffic-analysis.net/2026/10/01/index.h
 
 Num centro de operações de segurança (SOC), dois alertas chamam a atenção para um computador Windows da rede interna.
 
-- Um ficheiro executável do Windows (EXE) foi enviado a partir de 107.175.82[.]242 na porta 9000, uma porta invulgar para este tipo de transferência
-- Tráfego de comando e controlo (C2) de um RAT para 195.64.128[.]106 na porta 443
+- Um ficheiro executável do Windows (EXE) foi enviado a partir de 107.175.82.242 na porta 9000, uma porta invulgar para este tipo de transferência
+- Tráfego de comando e controlo (C2) de um RAT para 195.64.128.106 na porta 443
 
 A captura é o tráfego desse computador Windows e serve para confirmar os alertas e identificar a máquina infetada.
 
@@ -77,6 +81,14 @@ O pacote 6 é o cliente a perguntar quem tem o endereço 10.10.1.1. A resposta v
 
 ![ARP, quem tem o gateway](imagens/06-arp-gateway.png)
 
+No print, o MAC fica cortado do lado direito, por isso ficam aqui os valores completos, confirmados nas respostas ARP da captura.
+
+| IP | MAC | Aparelho |
+|---|---|---|
+| 10.10.1.1 | 00:01:96:ce:dd:92 | Gateway (Cisco) |
+| 10.10.1.10 | 18:a9:9b:20:dd:f1 | Controlador de domínio (Dell) |
+| 10.10.1.128 | 00:22:fb:ec:7e:e7 | Cliente infetado (Intel) |
+
 ### 4. NBNS, confirmar o nome do host
 
 Filtro: `nbns`
@@ -89,7 +101,7 @@ O pacote 33 é o cliente 10.10.1.128 a registar o nome `DESKTOP-4VGYQX7<00>` no 
 
 Filtro: `kerberos.CNameString`
 
-São 33 pacotes. O pacote 95 é um AS-REP do controlador de domínio 10.10.1.10 para o cliente 10.10.1.128, com o campo CNameString a mostrar `DESKTOP-4VGYQX7$`. O cifrão no fim indica que é uma conta de máquina e não de uma pessoa, por isso este pacote confirma o nome do host mas não o utilizador.
+São 33 pacotes. O pacote 95 é um AS-REP do controlador de domínio 10.10.1.10 para o cliente 10.10.1.128, com o campo CNameString a mostrar `DESKTOP-4VGYQX7$`. O cifrão no fim indica que é uma conta de máquina e não de uma pessoa, por isso este pacote confirma o nome do host mas não o utilizador. Este foi o primeiro filtro que tentei, e foi o resultado dele que mostrou que era preciso tirar as contas de máquina da lista para chegar ao utilizador.
 
 ![Kerberos CNameString, pacote 95](imagens/08-kerberos-cnamestring.png)
 
@@ -116,9 +128,18 @@ b789adce70c028a6d17be45ec34667aa95586350ee0c4057e75b138b1ad35061  runner_ilove.e
 
 ### 7. O que o VirusTotal diz do ficheiro
 
-Consulta do hash no VirusTotal, com última análise a 02/11/2026 e confirmada na página do ficheiro. 48 em 71 motores de segurança marcavam o ficheiro como malicioso. O nome original do ficheiro é `service.exe` e o tamanho é 1,57 MB. A etiqueta de ameaça mais comum é `trojan.capdoor/zusy`, com as etiquetas de família `capdoor`, `zusy` e `misc`. Alguns dos nomes dados pelos motores são `Trojan/Win.AsyncRAT`, `Backdoor:Win/CapDoor.a` e `Trojan/Win64.Zusy`. A pontuação do VirusTotal muda com novas análises, por isso este valor é o da consulta registada no print e não uma pontuação atual.
+Consulta do hash no VirusTotal, com última análise a 02/11/2026 e confirmada na página do ficheiro. A pontuação do VirusTotal muda com novas análises, por isso estes valores são os da consulta registada e não uma pontuação atual.
 
-![VirusTotal, 48 em 71 motores](imagens/14-virustotal-hash.png)
+| Campo | Valor |
+|---|---|
+| Motores a marcar o ficheiro | 48 em 71 |
+| Nome original do ficheiro | service.exe |
+| Tamanho | 1,57 MB |
+| Etiqueta de ameaça | trojan.capdoor/zusy |
+| Famílias | capdoor, zusy, misc |
+| Última análise | 02/11/2026 |
+
+Ver o ficheiro no VirusTotal: https://www.virustotal.com/gui/file/b789adce70c028a6d17be45ec34667aa95586350ee0c4057e75b138b1ad35061
 
 ### 8. Um pormenor que vale a pena registar, os pedidos com curl
 
@@ -132,7 +153,7 @@ São só dois pacotes. O pacote 8235 é um `GET /prw` e o pacote 8345 é um `GET
 
 ## Nota sobre o endereço de comando e controlo
 
-O alerta na página do exercício diz que o tráfego C2 vai para 195.64.128[.]106 na porta 443. Na captura, o endereço com tráfego é 195.63.128.106, com 15 595 pacotes e 14 MB, e não há nenhum pacote com o endereço 195.64.128.106. Os dois endereços diferem num dígito. Fica registado como está na captura, porque é o endereço que se vê nos endpoints e é o maior interlocutor externo depois do próprio cliente.
+O alerta na página do exercício diz que o tráfego C2 vai para 195.64.128.106 na porta 443. Na captura, o endereço com tráfego é 195.63.128.106, com 15 595 pacotes e 14 MB, e não há nenhum pacote com o endereço 195.64.128.106. Os dois endereços diferem num dígito. Fica registado como está na captura, porque é o endereço que se vê nos endpoints e é o maior interlocutor externo depois do próprio cliente.
 
 ## Filtros usados
 
@@ -157,8 +178,7 @@ Os filtros de ecrã usados nesta análise estão no ficheiro `filtros.txt`.
 |---|---|
 | `README.md` | Este relatório |
 | `filtros.txt` | Filtros de ecrã do Wireshark usados na análise |
-| `indicadores.txt` | Indicadores do incidente, com endereços externos defanged |
-| `imagens/` | 14 prints da análise, um por passo |
+| `imagens/` | 13 prints da análise, um por passo |
 
 A captura `.pcap` e o ficheiro EXE exportado não estão neste repositório. A captura tem 36 MB e contém tráfego real de malware. Quem quiser reproduzir a análise deve descarregar a captura na fonte oficial, com o link acima.
 
@@ -182,8 +202,6 @@ As 5 respostas pedidas no exercício, mais os outros indicadores que a análise 
 | Domínio | natureforce.com | Ambiente NATUREFORCE |
 | Controlador de domínio | 10.10.1.10 | MAC 18:a9:9b:20:dd:f1 |
 | Gateway | 10.10.1.1 | MAC 00:01:96:ce:dd:92 |
-| Origem do EXE | 107.175.82[.]242:9000 | Pacote 24916 |
-| C2 na captura | 195.63.128[.]106:443 | 15 595 pacotes, 14 MB |
+| Origem do EXE | 107.175.82.242:9000 | Pacote 24916 |
+| C2 na captura | 195.63.128.106:443 | 15 595 pacotes, 14 MB |
 | Pedidos com curl | holtandberyl.com | GET /prw e /crv, curl/8.21.0 |
-
-Os indicadores estão também no ficheiro `indicadores.txt`, com os endereços externos defanged para não serem clicáveis por engano.
