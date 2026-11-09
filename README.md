@@ -22,15 +22,7 @@ Características do ambiente, dadas no enunciado do exercício.
 - Gateway: 10.10.1.1
 - Broadcast: 10.10.1.255
 
-## Respostas do relatório de incidente
-
-| Pergunta | Resposta |
-|---|---|
-| Endereço IP do cliente Windows infetado | 10.10.1.128 |
-| Endereço MAC do cliente Windows infetado | 00:22:fb:ec:7e:e7 |
-| Nome do host do cliente Windows infetado | DESKTOP-4VGYQX7 |
-| Nome da conta de utilizador do cliente Windows infetado | bdiaz |
-| Hash SHA-256 do EXE enviado de 107.175.82[.]242:9000 para o cliente | b789adce70c028a6d17be45ec34667aa95586350ee0c4057e75b138b1ad35061 |
+As respostas do relatório estão no fim, numa só tabela com os indicadores.
 
 ## A captura
 
@@ -51,7 +43,7 @@ Ficheiro: `2026-10-01-traffic-analysis-exercise.pcap`
 
 ![Propriedades da captura](imagens/02-propriedades-captura.png)
 
-## Como cheguei a cada resposta
+## Como cheguei às respostas
 
 ### 1. Hierarquia de protocolos
 
@@ -113,7 +105,12 @@ File, Export Objects, HTTP. Na lista, o pacote 24916 destaca-se logo: hostname `
 
 ![Exportar objetos HTTP, o EXE no pacote 24916](imagens/10-exportar-objetos-http.png)
 
-Depois de exportar o ficheiro, o comando `sha256sum runner_ilove.exe` dá o hash `b789adce70c028a6d17be45ec34667aa95586350ee0c4057e75b138b1ad35061`, que é a resposta à última pergunta do relatório.
+Depois de exportar o ficheiro, o comando `sha256sum runner_ilove.exe` dá o hash da última pergunta do relatório.
+
+```
+$ sha256sum runner_ilove.exe
+b789adce70c028a6d17be45ec34667aa95586350ee0c4057e75b138b1ad35061  runner_ilove.exe
+```
 
 ![sha256sum do ficheiro exportado](imagens/01-sha256-runner-ilove-exe.png)
 
@@ -136,24 +133,6 @@ São só dois pacotes. O pacote 8235 é um `GET /prw` e o pacote 8345 é um `GET
 ## Nota sobre o endereço de comando e controlo
 
 O alerta na página do exercício diz que o tráfego C2 vai para 195.64.128[.]106 na porta 443. Na captura, o endereço com tráfego é 195.63.128.106, com 15 595 pacotes e 14 MB, e não há nenhum pacote com o endereço 195.64.128.106. Os dois endereços diferem num dígito. Fica registado como está na captura, porque é o endereço que se vê nos endpoints e é o maior interlocutor externo depois do próprio cliente.
-
-## Indicadores
-
-Os indicadores estão também no ficheiro `indicadores.txt`, com os endereços externos desfragmentados (defanged) para não serem clicáveis por engano.
-
-| Indicador | Valor | Nota |
-|---|---|---|
-| Cliente infetado (IP) | 10.10.1.128 | 42 340 pacotes |
-| Cliente infetado (MAC) | 00:22:fb:ec:7e:e7 | Intel |
-| Cliente infetado (host) | DESKTOP-4VGYQX7 | Conta de máquina no Kerberos |
-| Utilizador | bdiaz | Pacote 1342 |
-| Domínio | natureforce.com | Ambiente NATUREFORCE |
-| Controlador de domínio | 10.10.1.10 | MAC 18:a9:9b:20:dd:f1 |
-| Gateway | 10.10.1.1 | MAC 00:01:96:ce:dd:92 |
-| Origem do EXE | 107.175.82[.]242:9000 | Pacote 24916 |
-| Hash SHA-256 do EXE | b789adce70c028a6d17be45ec34667aa95586350ee0c4057e75b138b1ad35061 | service.exe, 1,57 MB |
-| C2 na captura | 195.63.128[.]106:443 | 15 595 pacotes, 14 MB |
-| Pedidos com curl | holtandberyl.com | GET /prw e /crv, curl/8.21.0 |
 
 ## Filtros usados
 
@@ -188,3 +167,23 @@ A captura `.pcap` e o ficheiro EXE exportado não estão neste repositório. A c
 - 24,3% do tráfego é TLS, por isso grande parte do conteúdo está encriptado e não dá para ver o que passa lá dentro. As conclusões baseiam-se nos metadados, nos endpoints, nos protocolos e nos poucos pedidos HTTP em claro.
 - O VirusTotal dá uma classificação do ficheiro, não uma prova do que ele fez nesta rede. A deteção confirma que o ficheiro é malicioso, mas o comportamento dele nesta máquina só se vê no tráfego.
 - A divergência do endereço C2, 195.63 contra 195.64 no alerta, fica registada como observação da captura e não como correção do alerta.
+
+## Respostas do relatório e indicadores
+
+As 5 respostas pedidas no exercício, mais os outros indicadores que a análise deixou.
+
+| Indicador | Valor | Nota |
+|---|---|---|
+| Cliente infetado (IP) | 10.10.1.128 | 42 340 pacotes |
+| Cliente infetado (MAC) | 00:22:fb:ec:7e:e7 | Intel |
+| Cliente infetado (host) | DESKTOP-4VGYQX7 | Conta de máquina no Kerberos |
+| Utilizador | bdiaz | Pacote 1342 |
+| Hash SHA-256 do EXE | b789adce70c028a6d17be45ec34667aa95586350ee0c4057e75b138b1ad35061 | service.exe, 1,57 MB |
+| Domínio | natureforce.com | Ambiente NATUREFORCE |
+| Controlador de domínio | 10.10.1.10 | MAC 18:a9:9b:20:dd:f1 |
+| Gateway | 10.10.1.1 | MAC 00:01:96:ce:dd:92 |
+| Origem do EXE | 107.175.82[.]242:9000 | Pacote 24916 |
+| C2 na captura | 195.63.128[.]106:443 | 15 595 pacotes, 14 MB |
+| Pedidos com curl | holtandberyl.com | GET /prw e /crv, curl/8.21.0 |
+
+Os indicadores estão também no ficheiro `indicadores.txt`, com os endereços externos desfragmentados (defanged) para não serem clicáveis por engano.
