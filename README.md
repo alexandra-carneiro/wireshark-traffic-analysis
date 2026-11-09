@@ -141,6 +141,8 @@ Consulta do hash no VirusTotal, com última análise a 02/11/2026 e confirmada n
 
 Ver o ficheiro no VirusTotal: https://www.virustotal.com/gui/file/b789adce70c028a6d17be45ec34667aa95586350ee0c4057e75b138b1ad35061
 
+![VirusTotal, 48 em 71 motores](imagens/14-virustotal-hash.png)
+
 ### 8. Um pormenor que vale a pena registar, os pedidos com curl
 
 Filtro: `http.host == "holtandberyl.com"`
@@ -178,7 +180,7 @@ Os filtros de ecrã usados nesta análise estão no ficheiro `filtros.txt`.
 |---|---|
 | `README.md` | Este relatório |
 | `filtros.txt` | Filtros de ecrã do Wireshark usados na análise |
-| `imagens/` | 13 prints da análise, um por passo |
+| `imagens/` | 14 prints da análise, um por passo |
 
 A captura `.pcap` e o ficheiro EXE exportado não estão neste repositório. A captura tem 36 MB e contém tráfego real de malware. Quem quiser reproduzir a análise deve descarregar a captura na fonte oficial, com o link acima.
 
