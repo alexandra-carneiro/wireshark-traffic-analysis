@@ -1,0 +1,25 @@
+Indicadores do incidente, exercício Natureforce
+Captura: 2026-10-01-traffic-analysis-exercise.pcap
+Os endereços externos estão defanged para não serem clicáveis por engano.
+
+Cliente infetado (IP): 10.10.1.128
+Cliente infetado (MAC): 00:22:fb:ec:7e:e7
+Cliente infetado (host): DESKTOP-4VGYQX7
+Utilizador: bdiaz
+Domínio: natureforce.com
+Controlador de domínio: 10.10.1.10
+Gateway: 10.10.1.1
+
+Origem do EXE: 107.175.82[.]242:9000
+Ficheiro exportado: runner_ilove.exe
+Nome original do ficheiro: service.exe
+Tamanho do EXE: 1 646 kB (1,57 MB)
+Hash SHA-256 do EXE: b789adce70c028a6d17be45ec34667aa95586350ee0c4057e75b138b1ad35061
+VirusTotal na altura da consulta: 48 em 71 motores
+Etiqueta de ameaça: trojan.capdoor/zusy
+
+C2 na captura: 195.63.128[.]106:443
+Nota: o alerta na página do exercício diz 195.64.128[.]106, mas na captura o tráfego é com 195.63.128.106.
+
+Pedidos com curl: holtandberyl.com, GET /prw e GET /crv, User-Agent curl/8.21.0
+Servidor de holtandberyl.com: 35.170.55.9
