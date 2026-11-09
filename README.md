@@ -143,17 +143,17 @@ Os indicadores estão também no ficheiro `indicadores.txt`, com os endereços e
 
 | Indicador | Valor | Nota |
 |---|---|---|
-| Cliente infetado (IP) | 10.10.1.128 | Domina a captura com 42 340 pacotes |
+| Cliente infetado (IP) | 10.10.1.128 | 42 340 pacotes |
 | Cliente infetado (MAC) | 00:22:fb:ec:7e:e7 | Intel |
-| Cliente infetado (host) | DESKTOP-4VGYQX7 | Conta de máquina DESKTOP-4VGYQX7$ no Kerberos |
-| Utilizador | bdiaz | CNameString no TGS-REP do pacote 1342 |
+| Cliente infetado (host) | DESKTOP-4VGYQX7 | Conta de máquina no Kerberos |
+| Utilizador | bdiaz | Pacote 1342 |
 | Domínio | natureforce.com | Ambiente NATUREFORCE |
-| Controlador de domínio | 10.10.1.10 | WIN-LEKBU2OY51N, MAC 18:a9:9b:20:dd:f1 |
+| Controlador de domínio | 10.10.1.10 | MAC 18:a9:9b:20:dd:f1 |
 | Gateway | 10.10.1.1 | MAC 00:01:96:ce:dd:92 |
-| Origem do EXE | 107.175.82[.]242:9000 | Pacote 24916, ficheiro runner_ilove.exe |
-| Hash SHA-256 do EXE | b789adce70c028a6d17be45ec34667aa95586350ee0c4057e75b138b1ad35061 | Nome original service.exe, 1,57 MB |
+| Origem do EXE | 107.175.82[.]242:9000 | Pacote 24916 |
+| Hash SHA-256 do EXE | b789adce70c028a6d17be45ec34667aa95586350ee0c4057e75b138b1ad35061 | service.exe, 1,57 MB |
 | C2 na captura | 195.63.128[.]106:443 | 15 595 pacotes, 14 MB |
-| Pedidos com curl | holtandberyl.com | GET /prw e GET /crv, User-Agent curl/8.21.0 |
+| Pedidos com curl | holtandberyl.com | GET /prw e /crv, curl/8.21.0 |
 
 ## Filtros usados
 
