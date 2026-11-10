@@ -119,11 +119,6 @@ File, Export Objects, HTTP. Na lista, o pacote 24916 destaca-se logo: hostname `
 
 Depois de exportar o ficheiro, o comando `sha256sum runner_ilove.exe` dá o hash da última pergunta do relatório.
 
-```
-$ sha256sum runner_ilove.exe
-b789adce70c028a6d17be45ec34667aa95586350ee0c4057e75b138b1ad35061  runner_ilove.exe
-```
-
 ![sha256sum do ficheiro exportado](imagens/01-sha256-runner-ilove-exe.png)
 
 ### 7. O que o VirusTotal diz do ficheiro
